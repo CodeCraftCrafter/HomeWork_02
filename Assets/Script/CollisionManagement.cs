@@ -4,15 +4,15 @@ public class CollisionManagement : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player")) //тег "Player"
-        {
-            Players player = other.gameObject.GetComponent<Players>();
+        // Проверяем, содержит ли объект, с которым произошло столкновение, компонент Person
+        Person person = other.GetComponent<Person>();
 
-            if (player != null)
-            {
-                player.ChangeLife(-30);
-                Debug.Log("Player has taken damage!");
-            }
+        if (person != null)
+        {
+            // Наносим урон, вызывая метод TakeDamage
+            person.TakeDamage(30); // Предполагается, что значение урона равно 30
+
+            Debug.Log("Damage applied to the player.");
         }
     }
 }

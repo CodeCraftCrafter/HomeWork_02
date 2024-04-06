@@ -3,10 +3,9 @@ using UnityEngine;
 public class Players : Person
 {
     [SerializeField]
-    private float speed = 5.0f;
-
+    private float speed = 5.0f; // Скорость движения игрока
     [SerializeField]
-    private int experience = 0;
+    private int experience = 0; // Опыт игрока
 
     void Start()
     {
@@ -37,10 +36,15 @@ public class Players : Person
         transform.position += moveDirection * speed * Time.deltaTime;
     }
 
-    new public void ChangeLife(int change)
+    // Реализация абстрактного метода TakeDamage
+    public override void TakeDamage(int damageValue)
     {
-        Life += change;
-        if (change < 0) GainExperience(10);
+        int finalDamage = Mathf.FloorToInt(damageValue * ImpactForce);
+        Life -= finalDamage;
+
+        GainExperience(10); // Награда опытом за получение урона
+
+        Debug.Log($"Player took {finalDamage} damage and gained experience. Remaining Life: {Life}");
     }
 
     private void GainExperience(int xp)
@@ -51,7 +55,6 @@ public class Players : Person
 
     public override void ShowStat()
     {
-        Debug.Log($"Name: {Name}, Experience: {experience}, Initial Life: {Life}");
+        Debug.Log($"Name: {Name}, Experience: {experience}, Life: {Life}");
     }
-
 }
