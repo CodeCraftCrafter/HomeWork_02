@@ -51,7 +51,7 @@ public class Players : Person
 
     public override void ShowStat()
     {
-        Debug.Log($"Name: {Name}, Experience: {experience}");
+        Debug.Log($"Name: {Name}, Experience: {experience}, Initial Life: {Life}");
     }
 
 }
