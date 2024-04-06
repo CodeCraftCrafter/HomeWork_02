@@ -33,6 +33,11 @@ public class Person : MonoBehaviour
         }
     }
 
+    public virtual void ShowStat()
+    {
+        Debug.Log($"Name: {Name}");
+    }
+
     public void ChangeLife(int change)
     {
         Life += change;

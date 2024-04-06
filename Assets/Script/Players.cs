@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class Players : Person
 {
-    public float speed = 5.0f;
+    [SerializeField]
+    private float speed = 5.0f;
 
-   
+    [SerializeField]
+    private int experience = 0;
+
     void Start()
     {
-        DisplayValues(); // начальные значения
+        ShowStat();
     }
 
-    
     void Update()
     {
-        Vector3 moveDirection = Vector3.zero; 
+        Vector3 moveDirection = Vector3.zero;
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
@@ -33,13 +35,23 @@ public class Players : Person
         }
 
         transform.position += moveDirection * speed * Time.deltaTime;
-
-        // обновления состояния или вывода информации
     }
 
-    // Name и Life в консоль
-    void DisplayValues()
+    new public void ChangeLife(int change)
     {
-        Debug.Log($"Name: {Name}, Life: {Life}");
+        Life += change;
+        if (change < 0) GainExperience(10);
     }
+
+    private void GainExperience(int xp)
+    {
+        experience += xp;
+        Debug.Log($"Gained {xp} experience points. Total XP: {experience}");
+    }
+
+    public override void ShowStat()
+    {
+        Debug.Log($"Name: {Name}, Experience: {experience}");
+    }
+
 }
