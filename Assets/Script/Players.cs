@@ -6,10 +6,9 @@ public class Players : Person
     private float speed = 5.0f; // Скорость движения игрока
     [SerializeField]
     private int experience = 0; // Опыт игрока
-
-    void Start()
+    public int Experience
     {
-        ShowStat();
+        get { return experience; }
     }
 
     void Update()
@@ -36,15 +35,17 @@ public class Players : Person
         transform.position += moveDirection * speed * Time.deltaTime;
     }
 
-    // Реализация абстрактного метода TakeDamage
-    public override void TakeDamage(int damageValue)
+    // Модифицированный метод TakeDamage с параметром gainExp
+    public override void TakeDamage(int damageValue, bool gainExp = true)
     {
-        int finalDamage = Mathf.FloorToInt(damageValue * ImpactForce);
-        Life -= finalDamage;
+        Life -= damageValue;
 
-        GainExperience(10); // Награда опытом за получение урона
+        if (gainExp)
+        {
+            GainExperience(10); // Награда опытом за получение урона
+        }
 
-        Debug.Log($"Player took {finalDamage} damage and gained experience. Remaining Life: {Life}");
+        Debug.Log($"Player took {damageValue} damage, remaining Life: {Life}, Experience: {experience}");
     }
 
     private void GainExperience(int xp)

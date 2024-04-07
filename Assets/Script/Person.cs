@@ -23,7 +23,7 @@ public abstract class Person : MonoBehaviour
     public float ImpactForce = 1f; // урон
 
     // Абстрактный метод
-    public abstract void TakeDamage(int damageValue);
+    public abstract void TakeDamage(int damageValue, bool gainExp = true);
 
     // Виртуальный метод
     public virtual void ShowStat()
